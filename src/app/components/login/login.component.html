@@ -1,0 +1,36 @@
+
+<form class="form-horizontal" (ngSubmit)="login()">
+  <fieldset>
+
+    <!-- Form Name -->
+    <h1 class="text-center mb-5">Sign In</h1>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="email">Email</label>
+      <div class="offset-4 col-md-4">
+        <input id="email" name="email" type="text" placeholder="johndoe@example.com" class="form-control input-md"
+               required="true" [(ngModel)]="email">
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="password">Password</label>
+      <div class="offset-4 col-md-4">
+        <input id="password" name="password" type="password" placeholder="" class="form-control input-md"
+               required="true" [(ngModel)]="password">
+      </div>
+    </div>
+
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="save"></label>
+      <div class="offset-4 col-md-4">
+        <button id="save" name="save" class="btn btn-success btn-block">Sign In</button>
+        <a id="clear" name="clear" class="btn btn-link btn-block mt-2" routerLink="/register">Register now?</a>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

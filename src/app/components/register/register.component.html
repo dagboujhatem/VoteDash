@@ -1,0 +1,51 @@
+
+<form class="form-horizontal"  (ngSubmit)="register()">
+  <fieldset>
+
+    <!-- Form Name -->
+    <h1 class="text-center mb-5">Register Yourself</h1>
+
+    <div *ngIf="registred" class="offset-4 col-md-4">
+      <div class="alert alert-success" role="alert">
+        Your profile has been created successfully!
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="fname">Full Name</label>
+      <div class="offset-4 col-md-4">
+        <input id="fname" name="fname" type="text" placeholder="John" class="form-control input-md"
+               required="true" [(ngModel)]="fname">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="email">Email</label>
+      <div class="offset-4 col-md-4">
+        <input id="email" name="email" type="text" placeholder="johndoe@example.com" class="form-control input-md"
+               required="true" [(ngModel)]="email">
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="password">Password</label>
+      <div class="offset-4 col-md-4">
+        <input id="password" name="password" type="password" placeholder="" class="form-control input-md"
+               required="true" [(ngModel)]="password">
+      </div>
+    </div>
+
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="save"></label>
+      <div class="offset-4 col-md-4">
+        <button id="save" name="save" class="btn btn-success btn-block">Register</button>
+        <button id="clear" name="clear" class="btn btn-danger btn-block mt-2">Reset</button>
+        <a id="clear" name="clear" class="btn btn-link btn-block mt-2" routerLink="/login">Go back</a>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
