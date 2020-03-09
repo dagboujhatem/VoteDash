@@ -14,11 +14,20 @@ export class ApiService {
   register(newUser) {
     return this.http.post(this.url + '/BackofficeUsers/', newUser);
   }
-  login( user) {
-    return this.http.post(this.url + '/BackofficeUsers/login', user);
+  login( credentials) {
+    return this.http.post(this.url + '/BackofficeUsers/login', credentials);
   }/*
   logout() {
     return this.http.post(this.url + '/BackofficeUsers/logout', this.authorizationService.getAccesToken());
   }*/
+  getSujets(){
+    return this.http.get(this.url + '/Sujets/findSujet');
+  }
+  addSujet(sujetData) {
+    return this.http.post(this.url + '/Sujets/', sujetData);
+  }
+  addVote(voteData) {
+    return this.http.post(this.url + '/Votes/addVote/', voteData);
+  }
 
 }

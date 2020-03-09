@@ -1,16 +1,27 @@
 
-<form class="form-horizontal" (ngSubmit)="login()">
+<form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
   <fieldset>
 
     <!-- Form Name -->
     <h1 class="text-center mb-5">Sign In</h1>
 
-    <!-- Text input-->
+    <!-- Error message -->
+    <div *ngIf="unauthorizedError" class="offset-4 col-md-4">
+      <div class="alert alert-danger" role="alert">
+        Email or password is incorrect!
+      </div>
+    </div>
+
+    <!-- Email Text input-->
     <div class="form-group">
       <label class="offset-4 col-md-4 control-label" for="email">Email</label>
       <div class="offset-4 col-md-4">
-        <input id="email" name="email" type="text" placeholder="johndoe@example.com" class="form-control input-md"
-               required="true" [(ngModel)]="email">
+        <input id="email" formControlName="email" type="text" placeholder="johndoe@example.com"
+               class="form-control input-md">
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
       </div>
     </div>
 
@@ -18,17 +29,19 @@
     <div class="form-group">
       <label class="offset-4 col-md-4 control-label" for="password">Password</label>
       <div class="offset-4 col-md-4">
-        <input id="password" name="password" type="password" placeholder="" class="form-control input-md"
-               required="true" [(ngModel)]="password">
+        <input id="password" formControlName="password" type="password" placeholder="Your password here"
+               class="form-control input-md">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
       </div>
     </div>
 
     <!-- Button (Double) -->
     <div class="form-group">
-      <label class="offset-4 col-md-4 control-label" for="save"></label>
       <div class="offset-4 col-md-4">
-        <button id="save" name="save" class="btn btn-success btn-block">Sign In</button>
-        <a id="clear" name="clear" class="btn btn-link btn-block mt-2" routerLink="/register">Register now?</a>
+        <button type="submit" id="save" name="save" class="btn btn-success btn-block" >Sign In</button>
+        <a class="btn btn-link btn-block mt-2" routerLink="/register">Register now?</a>
       </div>
     </div>
 
