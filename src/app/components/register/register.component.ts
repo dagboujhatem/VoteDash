@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
     this.api.register(user).subscribe(
       response => {
         this.registred = true;
-        this.registerForm.reset();
       },
       errorResponse => {
         // if Validation Error
