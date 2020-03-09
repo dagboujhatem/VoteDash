@@ -1,21 +1,32 @@
 
-<form class="form-horizontal"  (ngSubmit)="register()">
+<form class="form-horizontal"  [formGroup]="registerForm" (ngSubmit)="register()">
   <fieldset>
 
     <!-- Form Name -->
     <h1 class="text-center mb-5">Register Yourself</h1>
 
+    <!-- Success message -->
     <div *ngIf="registred" class="offset-4 col-md-4">
       <div class="alert alert-success" role="alert">
         Your profile has been created successfully!
       </div>
     </div>
-    <!-- Text input-->
+
+    <!-- Success message -->
+    <div *ngIf="errorsFromServer" class="offset-4 col-md-4">
+      <div class="alert alert-danger" role="alert">
+        {{errorsMessage}}
+      </div>
+    </div>
+
+    <!-- Username Text input-->
     <div class="form-group">
-      <label class="offset-4 col-md-4 control-label" for="fname">Full Name</label>
+      <label class="offset-4 col-md-4 control-label" for="username">Username</label>
       <div class="offset-4 col-md-4">
-        <input id="fname" name="fname" type="text" placeholder="John" class="form-control input-md"
-               required="true" [(ngModel)]="fname">
+        <input id="username" formControlName="username" type="text" placeholder="John" class="form-control input-md">
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
       </div>
     </div>
 
@@ -23,8 +34,11 @@
     <div class="form-group">
       <label class="offset-4 col-md-4 control-label" for="email">Email</label>
       <div class="offset-4 col-md-4">
-        <input id="email" name="email" type="text" placeholder="johndoe@example.com" class="form-control input-md"
-               required="true" [(ngModel)]="email">
+        <input id="email" formControlName="email" type="text" placeholder="johndoe@example.com" class="form-control input-md">
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
       </div>
     </div>
 
@@ -32,18 +46,32 @@
     <div class="form-group">
       <label class="offset-4 col-md-4 control-label" for="password">Password</label>
       <div class="offset-4 col-md-4">
-        <input id="password" name="password" type="password" placeholder="" class="form-control input-md"
-               required="true" [(ngModel)]="password">
+        <input id="password" formControlName="password" type="password" placeholder="Your password here" class="form-control input-md">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- confirmPassword input-->
+    <div class="form-group">
+      <label class="offset-4 col-md-4 control-label" for="confirmPassword">Confirm Password</label>
+      <div class="offset-4 col-md-4">
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Your password confirmation here" class="form-control input-md">
+        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback d-block">
+          <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
       </div>
     </div>
 
     <!-- Button (Double) -->
     <div class="form-group">
-      <label class="offset-4 col-md-4 control-label" for="save"></label>
       <div class="offset-4 col-md-4">
         <button id="save" name="save" class="btn btn-success btn-block">Register</button>
         <button id="clear" name="clear" class="btn btn-danger btn-block mt-2">Reset</button>
-        <a id="clear" name="clear" class="btn btn-link btn-block mt-2" routerLink="/login">Go back</a>
+        <a class="btn btn-link btn-block mt-2" routerLink="/login">Go back</a>
       </div>
     </div>
 
