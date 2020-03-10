@@ -15,6 +15,7 @@ export class VoteComponent implements OnInit {
   submitted = false;
   addedSuccessfully = false;
   autorisationError = false;
+  votedSuccessfully = false;
   maxVoteError = false;
   sujets: any = [];
   constructor(
@@ -62,6 +63,7 @@ export class VoteComponent implements OnInit {
         this.addedSuccessfully = true;
         this.submitted = false;
         this.sujetForm.reset();
+        this.loadSujetDeVote();
       },
       errorResponse => {
         // if Autorisation Error
@@ -79,14 +81,16 @@ export class VoteComponent implements OnInit {
       error => {}
     );
   }
-  voteOUI(sujetIdentifer) {
+  voteOUI(sujet) {
     const voteData = {
       voteValue: true,
       backofficeUserId: this.authorizationService.getBackofficeUserId(),
-      sujetId: sujetIdentifer
+      sujetId: sujet.id
     };
     this.api.addVote(voteData).subscribe(
       response => {
+        this.votedSuccessfully = true;
+        sujet.userVotedStatus = true;
       },
       errorResponse => {
         // if Autorisation Error
@@ -98,14 +102,16 @@ export class VoteComponent implements OnInit {
         }
       });
   }
-  voteNON(sujetIdentifer) {
+  voteNON(sujet) {
     const voteData = {
       voteValue: false,
       backofficeUserId: this.authorizationService.getBackofficeUserId(),
-      sujetId: sujetIdentifer
+      sujetId: sujet.id
     };
     this.api.addVote(voteData).subscribe(
       response => {
+        this.votedSuccessfully = true;
+        sujet.userVotedStatus = true;
       },
       errorResponse => {
         // if Autorisation Error
