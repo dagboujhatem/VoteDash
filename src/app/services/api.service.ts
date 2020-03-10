@@ -25,10 +25,11 @@ export class ApiService {
     return this.http.post(this.url + '/BackofficeUsers/logout?access_token=' + this.authorizationService.getAccesToken(), null );
   }
   getSujets() {
-    return this.http.get(this.url + '/Sujets/findSujet');
+    const bodyData = {backofficeUserId: this.authorizationService.getBackofficeUserId()};
+    return this.http.post(this.url + '/Sujets/findSujet', bodyData);
   }
   addSujet(sujetData) {
-    return this.http.post(this.url + '/Sujets/', sujetData);
+    return this.http.post(this.url + '/Sujets', sujetData);
   }
   addVote(voteData) {
     return this.http.post(this.url + '/Votes/addVote/', voteData);

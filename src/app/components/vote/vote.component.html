@@ -51,12 +51,32 @@
           <!-- Button (Double) -->
           <div class="form-group">
             <div class="offset-2 col-md-8">
-              <button type="submit" id="save" name="save" class="btn btn-success btn-block" >Add</button>
+              <button type="submit" class="btn btn-success btn-block" >Add</button>
             </div>
           </div>
 
         </fieldset>
       </form>
+
+      <!-- Success message -->
+      <div *ngIf="addedSuccessfully && !submitted" class="offset-2 col-md-8">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Subject created successfully!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="maxVoteError" class="offset-2 col-md-8">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          You have reached your maximum today. Please wait tomorrow.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
     </div>
     <!-- add sujet-->
 
@@ -67,23 +87,21 @@
         <tr>
           <th scope="col">Title</th>
           <th scope="col">Description</th>
-          <th scope="col">Votes Action</th>
+          <th scope="col">Percentage vote (OUI)</th>
+          <th scope="col">Vote actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
+        <tr *ngFor="let sujet of sujets">
+          <td>{{ sujet.titre }}</td>
+          <td>{{ sujet.description }}</td>
+          <td> <span class="badge badge-info"> {{ sujet.score }} % </span></td>
+          <td>
+              <div *ngIf="true">
+                <button class="btn btn-success btn-sm" (click)="voteOUI(sujet.id)">OUI</button>
+                <button class="btn btn-danger btn-sm ml-2" (click)="voteNON(sujet.id)">NON</button>
+              </div>
+          </td>
         </tr>
         </tbody>
       </table>
