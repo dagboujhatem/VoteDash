@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthorizationService} from '../../common/authorization.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private formBuilder: FormBuilder,
+    private authorizationService: AuthorizationService
     ) { }
 
   ngOnInit() {
@@ -43,19 +45,25 @@ export class LoginComponent implements OnInit {
     };
     this.api.login(credentials).subscribe(
       responseLogin => {
-          const authenticationObject = {
-            accessToken: responseLogin.id,
-            backofficeUserId: responseLogin.userId
-          };
-          localStorage.setItem('authenticationObject', JSON.stringify(authenticationObject));
-          this.router.navigate(['/votes']);
+        this.processLoginSuccessResponse( responseLogin);
         },
         errorResponse => {
         /* Unauthorized error */
-        if(errorResponse.status === 401 ) {
+        if (errorResponse.status === 401 ) {
           this.unauthorizedError = true;
           }
         });
+  }
+  processLoginSuccessResponse( responseLogin) {
+    const token = responseLogin.id;
+    const expiredTokenDateObject = this.authorizationService.setExpiredTokenDate(responseLogin.ttl, new Date());
+    const authenticationObject = {
+      accessToken: token,
+      expiredTokenDate: expiredTokenDateObject,
+    };
+    localStorage.setItem('authenticationObject', JSON.stringify(authenticationObject));
+    this.authorizationService.setBackofficeUserId(responseLogin.userId);
+    this.router.navigate(['/votes']);
   }
 
 }

@@ -3,20 +3,91 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#">Hidden brand</a>
+    <a class="navbar-brand" routerLink="/votes">Dashboard</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-primary my-2 my-sm-0" type="submit">logout</button>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="logout()">
+      <button class="btn btn-primary my-2 my-sm-0" type="submit"> logout</button>
     </form>
   </div>
 </nav>
+
+
+<!-- container -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- add sujet-->
+    <div class="col-md-6 col-sm-12">
+      <form class="form-horizontal" [formGroup]="sujetForm" (ngSubmit)="addSujet()">
+        <fieldset>
+
+          <!-- Form Name -->
+          <h1 class="text-center mb-4">Add a voting subject</h1>
+
+          <!-- Email Text input-->
+          <div class="form-group">
+            <label class="offset-2 col-md-8 control-label" for="titre">Title</label>
+            <div class="offset-2 col-md-8">
+              <input id="titre" formControlName="titre" type="text" placeholder="Title here ..."
+                     class="form-control input-md">
+              <div *ngIf="submitted && f.titre.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.titre.errors.required">Title is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password input-->
+          <div class="form-group">
+            <label class="offset-2 col-md-8 control-label" for="description">Description</label>
+            <div class="offset-2 col-md-8">
+              <textarea id="description" formControlName="description" placeholder="Your description here"
+                        class="form-control input-md"></textarea>
+              <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.description.errors.required">Description is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <div class="offset-2 col-md-8">
+              <button type="submit" id="save" name="save" class="btn btn-success btn-block" >Add</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+    <!-- add sujet-->
+
+    <!-- list of sujet-->
+    <div class="col-md-6 col-sm-12">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Votes Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- list of sujet-->
+  </div>
+</div>
